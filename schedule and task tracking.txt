@@ -1,0 +1,10 @@
+SPL -01
+(there will be a document about my work. what things 
+i have learnt during my work). 
+
+task schedule: 
+
+date: 10/01/23  time: 6:10 pm-12:30 am
+first task: read bmp image file
+
+* i worked with compression value=0.
