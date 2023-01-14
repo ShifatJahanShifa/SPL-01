@@ -1,10 +1,13 @@
 SPL -01
-(there will be a document about my work. what things 
-i have learnt during my work). 
 
-task schedule: 
+*** this note is for keeping record of my working time for this project.
+
+DAY 01: 
 
 date: 10/01/23  time: 6:10 pm-12:30 am
-first task: read bmp image file
+task: read bmp image file
 
-* i worked with compression value=0.
+DAY 02: 
+
+date: 14/01/23  time: 6:40 pm - 
+task: completion of image header file and read the image
