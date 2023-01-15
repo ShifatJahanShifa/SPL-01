@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 #include <iomanip>
 #include <fstream>
-#include "BmpHeader.cpp"
+#include "BmpStructure.cpp"
 using namespace std;
 
 struct Image readImage(FILE *fp,int height,int width)
