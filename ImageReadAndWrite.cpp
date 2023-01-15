@@ -57,7 +57,7 @@ void freeImage(struct Image &pic)
 
 int writeImage(struct BitMapHeader bmpheader,struct DIBHeader dibheader,struct Image pic)
 {
-    FILE *fp1=fopen("CopyFirstImage.bmp","wb");
+    FILE *fp1=fopen("CopySecondImage.bmp","wb");
 
     if(fp1==NULL)
     {
@@ -97,7 +97,7 @@ int writeImage(struct BitMapHeader bmpheader,struct DIBHeader dibheader,struct I
 
 void openbmpfile()
 {
-    FILE *fp=fopen("bmpPic.bmp","rb");
+    FILE *fp=fopen("test.bmp","rb");
 
     if(fp==NULL)
     {
