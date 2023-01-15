@@ -25,3 +25,4 @@ DAY 02: 7:32 PM 14-Jan-23
 		description: same as read function. 
 
 	-->size_t can be treated as the largest size compiler can handle. typically it is unsigned. and with unsigned type, back loop is dangerous. 
+2) 
