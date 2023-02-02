@@ -21,7 +21,8 @@ int main()
     cout<<"\n\n";
 
 
-    /** showing additional info **/
+    /**************** showing additional info *******************/
+    
     cout<<"## caution : these features are applicable for only .bmp image file.";
     cout<<"\n\n";
 
@@ -53,7 +54,8 @@ int main()
 
 
 
-            /** checking for valid format of image file **/
+            /****************checking for valid format of image file *****************/
+            
             cout<<"\nchecking for valid format of image file.";
             cout<<"please wait.\n\n";
 
@@ -71,7 +73,8 @@ int main()
             }
 
 
-            /** checking opening issue **/
+            /************* checking opening issue *************/
+            
             ifstream inputFile;
             inputFile.open(imageFileName,ios:: binary);
 
@@ -90,7 +93,7 @@ int main()
             inputFile.close();
 
 
-            /** checking if the text file is compatible for steganography **/
+            /***************checking if the text file is compatible for steganography ****************/
 
             ifstream inputfile1;
             inputfile1.open(textFileName,ios:: binary);
