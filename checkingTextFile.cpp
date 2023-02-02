@@ -8,7 +8,7 @@ using namespace std;
 
 int checkingTextFile(string imageFile,string textFile)
 {
-    /** at first gaining image height and width **/
+    /********* at first gaining image height and width **********/
 
     FILE *fp=fopen(imageFile.c_str(),"rb");
     if (fp == NULL)
@@ -18,7 +18,7 @@ int checkingTextFile(string imageFile,string textFile)
     }
 
 
-    /** first header **/
+    /********** first header ************/
     struct BitMapHeader bmpheader;
 
     fread(bmpheader.name,2,1,fp);
@@ -30,8 +30,7 @@ int checkingTextFile(string imageFile,string textFile)
     // printf("first two characters: %c%c \n",bmpheader.name[0],bmpheader.name[1]);
 
 
-
-    /** second header **/
+    /************second header **************/
     struct DIBHeader dibheader;
 
     fread(&dibheader,sizeof(struct DIBHeader),1,fp);
@@ -42,7 +41,7 @@ int checkingTextFile(string imageFile,string textFile)
     fclose(fp);
 
 
-    /** text file section **/
+    /**********text file section ***********/
 
     FILE *fp1=fopen(textFile.c_str(),"r");
     if(fp1==NULL)
@@ -51,7 +50,7 @@ int checkingTextFile(string imageFile,string textFile)
         return 0;
     }
 
-    /** checking text file size **/
+    /*********** checking text file size ************/
     long long int textFileSize;
     int countCharacter=0;
     char ch;
@@ -72,7 +71,7 @@ int checkingTextFile(string imageFile,string textFile)
 
 
 
-    /** checking available space in bits for hiding these text file.**/
+    /************* checking available space in bits for hiding these text file.***************/
 
     if((dibheader.height * dibheader.width *3)>textFileSize)
     {
