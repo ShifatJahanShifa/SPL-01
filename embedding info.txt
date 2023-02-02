@@ -1,0 +1,5 @@
+6:36 PM 02-Feb-23
+
+
+i will embed the text file binary data into image using 3 bits of the RGB pallete.
+in every last bit of rgb pallete, i will embed.
