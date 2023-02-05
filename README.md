@@ -3,3 +3,6 @@
 # roll-1301
 
 #this project is about implementing steganography. in this project, image file will be used as cover media and text file will be used as hidden data.
+#this will help hide information within multimedia (image,gif,audio etc) 
+
+#Supervisor: Dr. B M Mainul Hossain
