@@ -22,8 +22,8 @@ int main()
 
 
     /** showing additional info **/
-    cout<<"## caution : these features are applicable for only .bmp image file.";
-    cout<<"\n\n";
+    /*cout<<"## caution : these features are applicable for only .bmp image file.";
+    cout<<"\n\n";*/
 
 
     bool continueLoop=true;
@@ -46,10 +46,19 @@ int main()
             cout<<"provide image file name";
             cout<<"\n";
             cin>>imageFileName;
+            imageFileName+='.';
+            imageFileName+='b';
+            imageFileName+='m';
+            imageFileName+='p';
+
 
             cout<<"provide text file name";
             cout<<"\n";
             cin>>textFileName;
+            textFileName+='.';
+            textFileName+='t';
+            textFileName+='x';
+            textFileName+='t';
 
 
 
@@ -129,3 +138,4 @@ int main()
     }
 
 }
+
