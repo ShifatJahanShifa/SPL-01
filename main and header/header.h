@@ -9,12 +9,13 @@
 /** this is for source file section **/
 
 #include "BmpStructure.cpp"
-//#include "checkingImageFormat.cpp"
-//#include "checkingTextFile.cpp"
 
 
 using namespace std;
 
-
 int checkingImageFormat(string fileName);
 int checkingTextFile(string imageFile,string textFile);
+string addImageFileExtension(string imageFileName);
+string addTextFileExtension(string textFileName);
+int hidingData(string imageFile,string textFile);
+vector<int> textToBinary(string textFile);
