@@ -22,8 +22,6 @@ int main()
 
 
     /** showing additional info **/
-    /*cout<<"## caution : these features are applicable for only .bmp image file.";
-    cout<<"\n\n";*/
 
 
     bool continueLoop=true;
@@ -45,79 +43,53 @@ int main()
 
             cout<<"provide image file name";
             cout<<"\n";
-            cin>>imageFileName;
-            imageFileName+='.';
-            imageFileName+='b';
-            imageFileName+='m';
-            imageFileName+='p';
 
+            cin>>imageFileName;
+            string extendedImageFileName=addImageFileExtension(imageFileName);
 
             cout<<"provide text file name";
             cout<<"\n";
+
             cin>>textFileName;
-            textFileName+='.';
-            textFileName+='t';
-            textFileName+='x';
-            textFileName+='t';
+            string extendedTextFileName=addTextFileExtension(textFileName);
 
 
-
-            /** checking for valid format of image file **/
-            cout<<"\nchecking for valid format of image file.";
-            cout<<"please wait.\n\n";
-
-
-            if(checkingImageFormat(imageFileName))
-            {
-                cout<<"The image format is correct.";
-                cout<<"\n";
-            }
-            else
-            {
-                cout<<"sorry, the image format is not correct.";
-                cout<<"redirecting to the option menu.\n\n";
-                continue;
-            }
-
-
-            /** checking opening issue **/
+            /** checking opening issue of image file**/   //  limitation
             ifstream inputFile;
-            inputFile.open(imageFileName,ios:: binary);
+            inputFile.open(extendedImageFileName,ios:: binary);
 
             if(!inputFile)
             {
-                cout<<"couldn't locate the file\n";
+                cout<<"couldn't find the image file in storage\n";
                 cout<<"redirecting to the option menu\n\n";
                 continue;
-            }
-            else
-            {
-                cout<<"your source image file is ready to be cover media.";
-                cout<<"\n\n";
             }
 
             inputFile.close();
 
 
-            /** checking if the text file is compatible for steganography **/
+            if(!checkingImageFormat(extendedImageFileName))
+            {
+                cout<<"sorry, the image format is not correct.\n";
+                cout<<"redirecting to the option menu.\n\n";
+                continue;
+            }
+
+
+            /** checking if the text file is compatible for steganography **/   // correction
 
             ifstream inputfile1;
-            inputfile1.open(textFileName,ios:: binary);
+            inputfile1.open(extendedTextFileName,ios:: binary);
 
             if(!inputfile1)
             {
-                cout<<"couldn't locate the file\n";
+                cout<<"couldn't load the text file\n";
                 cout<<"redirecting to the option menu\n\n";
                 continue;
             }
 
 
-            if(checkingTextFile(imageFileName,textFileName))
-            {
-                cout<<"possible to hide the text file within provided image file.";
-                cout<<"\n";
-            }
-            else
+            if(!checkingTextFile(extendedImageFileName,extendedTextFileName))
             {
                 cout<<"not possible to hide the text file within provided image file.";
                 cout<<"redirecting to the option menu.\n\n";
@@ -125,6 +97,11 @@ int main()
             }
 
             inputfile1.close();
+
+            if(hidingData(extendedImageFileName,extendedTextFileName))
+            {
+                puts("stego image is ready");
+            }
 
         }
         else if(choice==2)
@@ -138,4 +115,3 @@ int main()
     }
 
 }
-
