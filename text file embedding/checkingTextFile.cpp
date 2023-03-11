@@ -8,38 +8,20 @@ using namespace std;
 
 int checkingTextFile(string imageFile,string textFile)
 {
-    /** at first gaining image height and width **/
+    /** gaining image height and width **/
+    ifstream inputFile;
+    inputFile.open(imageFile.c_str(),ios::binary);
 
-    FILE *fp=fopen(imageFile.c_str(),"rb");
-    if (fp == NULL)
-    {
-        printf("Error opening file %s", imageFile.c_str());
-        return 0;
-    }
-
-
-    /** first header **/
-    struct BitMapHeader bmpheader;
-
-    fread(bmpheader.name,2,1,fp);
-    fread(&bmpheader.Size,3*sizeof(int),1,fp);
-
-    //printf("size: %d\n",bmpheader.Size);
-    //printf("offset: %d\n",bmpheader.imageOffset);
-    //fread(&bmpheader,sizeof(struct BitMapHeader),1,fp);/// where to store
-    // printf("first two characters: %c%c \n",bmpheader.name[0],bmpheader.name[1]);
-
-
-
-    /** second header **/
+    struct BMPSignature bmpsignature;
+    struct BitMapHeader bitmapheader;
     struct DIBHeader dibheader;
 
-    fread(&dibheader,sizeof(struct DIBHeader),1,fp);
+    inputFile.read((char *)&bmpsignature,sizeof(bmpsignature));
+    inputFile.read((char *)&bitmapheader,sizeof(bitmapheader));
+    inputFile.read((char *)&dibheader,sizeof(dibheader));
 
-    //printf("header size: %d\nwidth: %d\nheight: %d",dibheader.headerSize,dibheader.width,dibheader.height);
-    // printf("\ncolorplanes: %d\nbitspersecond: %d\ncompression: %d\nimagesize: %d\n",dibheader.colorPlanes,dibheader.bitsPerPixel,dibheader.compression,dibheader.imageSize);
-
-    fclose(fp);
+    int imageHeight=dibheader.height;
+    int imageWidth=dibheader.width;
 
 
     /** text file section **/
@@ -47,7 +29,7 @@ int checkingTextFile(string imageFile,string textFile)
     FILE *fp1=fopen(textFile.c_str(),"r");
     if(fp1==NULL)
     {
-        printf("Error opening file %s", imageFile.c_str());
+        printf("Error opening file %s", textFile.c_str());
         return 0;
     }
 
@@ -66,15 +48,9 @@ int checkingTextFile(string imageFile,string textFile)
 
     textFileSize=countCharacter*8;
 
-    cout<<"text file size in bits"<<"\n";
-    cout<<"size: "<<textFileSize<<"\n";
-    cout<<"total character: "<<countCharacter<<"\n";
-
-
-
     /** checking available space in bits for hiding these text file.**/
 
-    if((dibheader.height * dibheader.width *3)>textFileSize)
+    if((imageHeight * imageWidth *3)>(textFileSize+10))
     {
         return 1;
     }
