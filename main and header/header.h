@@ -19,3 +19,6 @@ string addImageFileExtension(string imageFileName);
 string addTextFileExtension(string textFileName);
 int hidingData(string imageFile,string textFile);
 vector<int> textToBinary(string textFile);
+void extractingData(string imageFile);
+vector<int> decimalToBinary(int decimalValue);
+int binaryToDecimal(int binArray[],int length);
