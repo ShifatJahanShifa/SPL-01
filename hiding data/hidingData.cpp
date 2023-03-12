@@ -11,6 +11,11 @@ int hidingData(string imageFile,string textFile)
 
     vector<int> binaryStream=textToBinary(textFile);
     //cout<<binaryStream.size()<<"\n";
+    /* for(int i=1;i<=binaryStream.size();i++)
+     {
+         cout<<binaryStream[i-1]<<" ";
+         if(i%8==0) puts("");
+     }*/
 
 
     /** image read and copy information **/
@@ -40,7 +45,6 @@ int hidingData(string imageFile,string textFile)
     int height=dibheader.height;
     int width=dibheader.width;
 
-    //cout<<"height "<<height<<" and width "<<width<<"\n";
 
     int*** pixels = new int** [height];
     for(int i = 0; i<height; i++)
@@ -71,22 +75,92 @@ int hidingData(string imageFile,string textFile)
     /** doing pixel decimal value to bin and embedding text binary value together **/
     int p=0;
     int sizeOfStream=binaryStream.size();
-    sizeOfStream--;
+    vector<int>flagStreams=decimalToBinary(sizeOfStream);
     bool ok=false;
 
-    for(int i=0; i<height; i++)
+
+    /** at first embedding the text file size **/
+
+    int a,b,c,d;
+
+    for(a=0; a<height; a++)
     {
-        for(int j=0; j<width; j++)
+        for(b=0; b<width; b++)
         {
-            int c=0;
+            d=0;
+            while(d<3)
+            {
+                if(p==32)
+                {
+                    ok=true;
+                    break;
+                }
+                int quotient=pixels[a][b][d];
+                //cout<<"#"<<pixels[a][b][d]<<"\n";
+                int remainder;
+                int binary[8];
+                int k=7;
+                while(quotient)
+                {
+                    remainder=quotient%2;
+                    binary[k]=remainder;
+                    k--;
+                    quotient/=2;
+                }
+
+                while(k>=0)
+                {
+                    binary[k]=0;
+                    k--;
+                }
+
+                binary[7]=flagStreams[p];
+                p++;
+
+                /** bin to int and embedding**/
+                int power=0;
+                pixels[a][b][d]=0;
+                for(int t=0; t<8; t++)
+                {
+                    pixels[a][b][d]+=(binary[t]*pow(2,(7-t)));
+                }
+
+                d++;
+            }
+            if(ok)
+                break;
+        }
+        if(ok)
+            break;
+    }
+
+    /** for data **/
+    p=0;
+    bool cnt=true;
+    ok=false;
+
+    for(int i=a; i<height; i++)
+    {
+        for(int j=b; j<width; j++)
+        {
+            if(cnt==true and d!=0)
+            {
+                c=d;
+                cnt=false;
+            }
+            else
+            {
+                c=0;
+            }
             while(c<3)
             {
-                 if(p==sizeOfStream)
-                 {
-                     ok=true;
-                     break;
-                 }
+                if(p==sizeOfStream)
+                {
+                    ok=true;
+                    break;
+                }
                 int quotient=pixels[i][j][c];
+                //cout<<"#hiding "<<quotient;
                 int remainder;
                 int binary[8];
                 int k=7;
@@ -107,27 +181,30 @@ int hidingData(string imageFile,string textFile)
                 binary[7]=binaryStream[p];
                 p++;
 
-                /** bin to int **/
+                /** bin to int and embedding **/
                 int power=0;
                 pixels[i][j][c]=0;
-                //cout<<"show now"<<" "<<pixels[i][j][c]<<"\n";
+
                 for(int t=0; t<8; t++)
                 {
                     pixels[i][j][c]+=(binary[t]*pow(2,(7-t)));
                 }
 
+                //cout<<"  new #hiding "<<pixels[a][b][c]<<"\n";
                 c++;
             }
-            if(ok) break;
+            if(ok)
+                break;
         }
-        if(ok) break;
+        if(ok)
+            break;
     }
 
 
     /** writing the image **/
-     for(int i=0;i<height;i++)
+    for(int i=0; i<height; i++)
     {
-        for(int j=0;j<width;j++)
+        for(int j=0; j<width; j++)
         {
             unsigned char color[3];
             color[0] = static_cast<unsigned char>(pixels[i][j][2]);
