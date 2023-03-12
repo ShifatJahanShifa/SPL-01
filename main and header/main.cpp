@@ -106,11 +106,47 @@ int main()
         }
         else if(choice==2)
         {
+            string stegoImageFileName;
 
+            cout<<"provide stego image file name";
+            cout<<"\n";
+
+            cin>>stegoImageFileName;
+            string extendedStegoImageFileName=addImageFileExtension(stegoImageFileName);
+
+            ifstream inputFile;
+
+            inputFile.open(extendedStegoImageFileName,ios:: binary);
+
+            if(!inputFile)
+            {
+                cout<<"couldn't find the image file in storage\n";
+                cout<<"redirecting to the option menu\n\n";
+                continue;
+            }
+
+            inputFile.close();
+
+
+            if(!checkingImageFormat(extendedStegoImageFileName))
+            {
+                cout<<"sorry, the image format is not correct.\n";
+                cout<<"redirecting to the option menu.\n\n";
+                continue;
+            }
+
+            extractingData(extendedStegoImageFileName);
+
+        }
+        else if(choice==3)
+        {
+            continueLoop=false;
         }
         else
         {
-            continueLoop=false;
+            cout<<"Invalid option";
+            cout<<"\n\n";
+            continue;
         }
     }
 
