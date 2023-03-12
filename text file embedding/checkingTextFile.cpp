@@ -50,7 +50,7 @@ int checkingTextFile(string imageFile,string textFile)
 
     /** checking available space in bits for hiding these text file.**/
 
-    if((imageHeight * imageWidth *3)>(textFileSize+10))
+    if((imageHeight * imageWidth *3)>(textFileSize+32))
     {
         return 1;
     }
