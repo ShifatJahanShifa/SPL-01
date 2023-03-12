@@ -43,19 +43,26 @@ vector<int> textToBinary(string textFile)
         decimal=ch;
         quotient=decimal;
         i=7;
+        int tempArray[8];
 
         while(quotient)
         {
             remainder=quotient%2;
-            bits.push_back(remainder);
+            tempArray[i]=remainder;
             i--;
             quotient/=2;
         }
 
         while(i>=0)
         {
-            bits.push_back(0);
+            tempArray[i]=0;
             i--;
+        }
+
+       //cout<<ch<<" ";
+        for(int t=0;t<8;t++)
+        {
+            bits.push_back(tempArray[t]);
         }
     }
 
