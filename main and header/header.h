@@ -9,7 +9,7 @@
 /** this is for source file section **/
 
 #include "BmpStructure.cpp"
-
+//#include "gifenc.h"
 
 using namespace std;
 
@@ -22,3 +22,4 @@ vector<int> textToBinary(string textFile);
 void extractingData(string imageFile);
 vector<int> decimalToBinary(int decimalValue);
 int binaryToDecimal(int binArray[],int length);
+void gif();
