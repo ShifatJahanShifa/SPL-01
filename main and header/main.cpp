@@ -21,7 +21,7 @@ int main()
     cout<<"\n";
     cout<<"data extracting";
     cout<<"\n\n";
-    cout<<"GIF encoder"
+    cout<<"GIF encoder";
     cout<<"\n\n";
 
 
