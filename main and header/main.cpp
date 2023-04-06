@@ -5,6 +5,8 @@
 
 #include "header.h"
 
+
+
 using namespace std;
 
 int main()
@@ -13,11 +15,13 @@ int main()
     cout<<"Welcome to Image Steganography";
     cout<<"\n\n";
     cout<<"*******************************\n\n";
-    cout<<"Here are our supported features";
+    cout<<"Here are my project features";
     cout<<"\n\n";
     cout<<"data hiding";
     cout<<"\n";
     cout<<"data extracting";
+    cout<<"\n\n";
+    cout<<"GIF encoder"
     cout<<"\n\n";
 
 
@@ -31,7 +35,8 @@ int main()
         cout<<"select an option to proceed: \n\n";
         cout<<"option 1: data hiding\n";
         cout<<"option 2: data extracting\n";
-        cout<<"option 3: quit\n";
+        cout<<"option 3: GIF encoder\n";
+        cout<<"option 4: quit\n";
 
         int choice;
         cin>>choice;
@@ -139,6 +144,12 @@ int main()
 
         }
         else if(choice==3)
+        {
+            cout<<"showing the gif file";
+            cout<<"\n";
+            gif();
+        }
+        else if(choice==4)
         {
             continueLoop=false;
         }
