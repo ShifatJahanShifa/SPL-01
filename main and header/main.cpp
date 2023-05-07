@@ -2,7 +2,7 @@
 #include<iostream>
 #include<fstream>
 #include<time.h>
-
+#include <cstdlib>
 #include "header.h"
 
 
@@ -80,6 +80,9 @@ int main()
                 continue;
             }
 
+            cout<<"before hiding data";
+            cout<<"\n";
+            openingImage(extendedImageFileName);
 
             /** checking if the text file is compatible for steganography **/   // correction
 
@@ -108,6 +111,9 @@ int main()
                 puts("stego image is ready");
             }
 
+            cout<<"after data hiding";
+            cout<<"\n";
+            openingImage(extendedImageFileName);
         }
         else if(choice==2)
         {
@@ -145,9 +151,27 @@ int main()
         }
         else if(choice==3)
         {
+            string pixelFileName;
+
+            cout<<"provide pixel file name";
+            cout<<"\n";
+
+            cin>>pixelFileName;
+            string extendedPixelFileName=addPixelFileExtension(pixelFileName);
+
+            FILE *fp=NULL;
+            fp = fopen(extendedPixelFileName.c_str(), "rb");
+
+            if(fp==NULL)
+            {
+                cout<<"couldn't find the pixel file in storage\n";
+                cout<<"redirecting to the option menu\n\n";
+                continue;
+            }
+
             cout<<"showing the gif file";
             cout<<"\n";
-            gif();
+            creatingGif(extendedPixelFileName);
         }
         else if(choice==4)
         {
@@ -157,7 +181,8 @@ int main()
         {
             cout<<"Invalid option";
             cout<<"\n\n";
-            continue;
+
+            return EXIT_FAILURE;
         }
     }
 

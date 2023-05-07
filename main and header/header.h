@@ -22,4 +22,7 @@ vector<int> textToBinary(string textFile);
 void extractingData(string imageFile);
 vector<int> decimalToBinary(int decimalValue);
 int binaryToDecimal(int binArray[],int length);
-void gif();
+string addPixelFileExtension(string pixelFileName);
+void gif(string pixelFileName,string gifFile);
+int creatingGif(string pixelFile);
+void openingImage(string fileName);
