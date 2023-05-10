@@ -9,7 +9,6 @@
 /** this is for source file section **/
 
 #include "BmpStructure.cpp"
-//#include "gifenc.h"
 
 using namespace std;
 
@@ -26,3 +25,4 @@ string addPixelFileExtension(string pixelFileName);
 void gif(string pixelFileName,string gifFile);
 int creatingGif(string pixelFile);
 void openingImage(string fileName);
+void processInputText(string textFile);
