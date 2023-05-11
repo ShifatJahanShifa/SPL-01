@@ -144,7 +144,8 @@ int main()
 
             inputfile1.close();
 
-            if(hidingData(extendedImageFileName,extendedTextFileName))
+            string stegoImage;
+            if((stegoImage=hidingData(extendedImageFileName,extendedTextFileName))!=" ")
             {
                 puts("stego image is ready");
                 cout<<"\n\n";
@@ -156,7 +157,7 @@ int main()
             }
 
             Sleep(4000);
-            openingImage(extendedImageFileName);
+            openingImage(stegoImage);
 
         }
         else if(choice==2)
