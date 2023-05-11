@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int hidingData(string imageFile,string textFile)
+string hidingData(string imageFile,string textFile)
 {
     /** text file to binary stream **/
 
@@ -29,8 +29,25 @@ int hidingData(string imageFile,string textFile)
     ifstream inputFile;
     ofstream outputFile;
 
+    // modification
+    string outputImage="stegoBMP";
+    for(int i=imageFile.size()-1;i>-1;i--)
+    {
+        if(imageFile[i]=='.')
+        {
+            outputImage+=imageFile[i-1];
+            break;
+        }
+    }
+
+    // including extension
+    outputImage+='.';
+    outputImage+='b';
+    outputImage+='m';
+    outputImage+='p';
+
     inputFile.open(imageFile,ios::binary);
-    outputFile.open("stegoBMP.bmp",ios::binary);
+    outputFile.open(outputImage,ios::binary);
 
     inputFile.read((char *)&bmpsignature,sizeof(bmpsignature));
     inputFile.read((char *)&bitmapheader,sizeof(bitmapheader));
@@ -220,5 +237,5 @@ int hidingData(string imageFile,string textFile)
     inputFile.close();
     outputFile.close();
 
-    return 1;
+    return outputImage;
 }
