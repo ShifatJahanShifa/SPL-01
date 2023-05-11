@@ -136,11 +136,11 @@ GIF *newGif(const char *fileName, uint16_t width, uint16_t height,
     if (gif->fileDescriptor == -1)
         free(gif);
 
-
-        /* opening in binary mode */
+    /* opening in binary mode*/
 #ifdef _WIN32
     setmode(gif->fileDescriptor, O_BINARY);
 #endif
+
 
     write(gif->fileDescriptor, "GIF89a", 6);  // gif file signature
     writeNum(gif->fileDescriptor, width);
@@ -201,15 +201,7 @@ GIF *newGif(const char *fileName, uint16_t width, uint16_t height,
             }
         }
 
-        /* spreading pixel value of gray scale between the remaining color table
-
-        for (i = 1; i <= 24; i++)
-        {
-            v = i * 0xFF / 25;
-            writeAndStore(storeGct, palette, gif->fileDescriptor,
-                            ((uint8_t []){v, v, v}), 3);
-        }*/
-
+        // spreading pixel value of gray scale between the remaining color table
         for (int i = 1; i <= 24; i++)
         {
             uint8_t v = i * 0xFF / 25;
