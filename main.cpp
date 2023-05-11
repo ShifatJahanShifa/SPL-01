@@ -2,30 +2,43 @@
 #include<iostream>
 #include<fstream>
 #include<time.h>
-
+#include <cstdlib>
 #include "header.h"
+#include<time.h>
+#include <thread>
+#include<windows.h>
+#include<wincon.h>
+#include<sstream>
 
 using namespace std;
 
 int main()
 {
-    cout<<"*******************************\n\n";
-    cout<<"Welcome to Image Steganography";
+
+    system("color ED");
+
+    cout<<"**********************************************";
+    cout<<"**************************************************************************\n\n";
+    cout<<"\t\t\t\t  Welcome to Invisible Ink & Animated Frame Encoder";
     cout<<"\n\n";
-    cout<<"*******************************\n\n";
-    cout<<"Here are our supported features";
+    cout<<"**********************************************";
+    cout<<"**************************************************************************\n\n";
+
+    cout<<"\t\t\t\t\t Here are my project features:\n";
+    cout<<"\t\t\t\t\t_______________________________";
     cout<<"\n\n";
-    cout<<"data hiding";
+    cout<<"\t---------------\t\t";
+    cout<<"\t      -------------------\t\t";
+    cout<<"\t     ---------------\t\t";
     cout<<"\n";
-    cout<<"data extracting";
+    cout<<"\t| Data Hiding |\t\t";
+    cout<<"\t      | Data Extracting |\t\t";
+    cout<<"\t     | GIF Encoder |\t\t";
+    cout<<"\n";
+    cout<<"\t---------------\t\t";
+    cout<<"\t      -------------------\t\t";
+    cout<<"\t     ---------------\t\t";
     cout<<"\n\n";
-
-
-    /**************** showing additional info *******************/
-    
-    cout<<"## caution : these features are applicable for only .bmp image file.";
-    cout<<"\n\n";
-
 
     bool continueLoop=true;
 
@@ -34,7 +47,8 @@ int main()
         cout<<"select an option to proceed: \n\n";
         cout<<"option 1: data hiding\n";
         cout<<"option 2: data extracting\n";
-        cout<<"option 3: quit\n";
+        cout<<"option 3: GIF encoder\n";
+        cout<<"option 4: quit\n";
 
         int choice;
         cin>>choice;
@@ -43,75 +57,85 @@ int main()
         {
             string imageFileName;
             string textFileName;
+            string extendedTextFileName;
 
             cout<<"provide image file name";
             cout<<"\n";
+
             cin>>imageFileName;
+            string extendedImageFileName=addImageFileExtension(imageFileName);
 
-            cout<<"provide text file name";
-            cout<<"\n";
-            cin>>textFileName;
+            // option for text file
+            bool looping=true;
 
-
-
-            /****************checking for valid format of image file *****************/
-            
-            cout<<"\nchecking for valid format of image file.";
-            cout<<"please wait.\n\n";
-
-
-            if(checkingImageFormat(imageFileName))
+            while(looping)
             {
-                cout<<"The image format is correct.";
+                cout<<"how do you want to provide hidden data?";
                 cout<<"\n";
-            }
-            else
-            {
-                cout<<"sorry, the image format is not correct.";
-                cout<<"redirecting to the option menu.\n\n";
-                continue;
+                cout<<"write now or provide text file name";
+                cout<<"\n\n";
+                cout<<"press 1 for writing now";
+                cout<<"\n";
+                cout<<"press 2 for providing text file name";
+                cout<<"\n";
+
+                int pressingValue;
+                cin>>pressingValue;
+
+                if(pressingValue==1)
+                {
+                    extendedTextFileName="input.txt";
+                    processInputText(extendedTextFileName);
+                }
+                else if(pressingValue==2)
+                {
+                    cin>>textFileName;
+                    extendedTextFileName=addTextFileExtension(textFileName);
+                }
+                else
+                {
+                    continue;
+                }
+                looping=false;
             }
 
-
-            /************* checking opening issue *************/
-            
+            /** checking opening issue of image file**/
             ifstream inputFile;
-            inputFile.open(imageFileName,ios:: binary);
+            inputFile.open(extendedImageFileName,ios:: binary);
 
             if(!inputFile)
             {
-                cout<<"couldn't locate the file\n";
+                cout<<"couldn't find the image file in storage\n";
                 cout<<"redirecting to the option menu\n\n";
                 continue;
-            }
-            else
-            {
-                cout<<"your source image file is ready to be cover media.";
-                cout<<"\n\n";
             }
 
             inputFile.close();
 
 
-            /***************checking if the text file is compatible for steganography ****************/
+            if(!checkingImageFormat(extendedImageFileName))
+            {
+                cout<<"sorry, the image format is not correct.\n";
+                cout<<"redirecting to the option menu.\n\n";
+                continue;
+            }
+
+            openingImage(extendedImageFileName);
+
+            /** checking if the text file is compatible for steganography **/   // correction
 
             ifstream inputfile1;
-            inputfile1.open(textFileName,ios:: binary);
+            inputfile1.open(extendedTextFileName,ios:: binary);
 
             if(!inputfile1)
             {
-                cout<<"couldn't locate the file\n";
+                cout<<"couldn't load the text file\n";
                 cout<<"redirecting to the option menu\n\n";
                 continue;
             }
 
 
-            if(checkingTextFile(imageFileName,textFileName))
-            {
-                cout<<"possible to hide the text file within provided image file.";
-                cout<<"\n";
-            }
-            else
+            if(!checkingTextFile(extendedImageFileName,extendedTextFileName))
             {
                 cout<<"not possible to hide the text file within provided image file.";
                 cout<<"redirecting to the option menu.\n\n";
@@ -120,15 +144,96 @@ int main()
 
             inputfile1.close();
 
+            if(hidingData(extendedImageFileName,extendedTextFileName))
+            {
+                puts("stego image is ready");
+                cout<<"\n\n";
+            }
+            else
+            {
+                puts("failed to create stego image");
+                continue;
+            }
+
+            Sleep(4000);
+            openingImage(extendedImageFileName);
+
         }
         else if(choice==2)
         {
+            string stegoImageFileName;
+
+            cout<<"provide stego image file name";
+            cout<<"\n";
+
+            cin>>stegoImageFileName;
+            string extendedStegoImageFileName=addImageFileExtension(stegoImageFileName);
+
+            ifstream inputFile;
+
+            inputFile.open(extendedStegoImageFileName,ios:: binary);
+
+            if(!inputFile)
+            {
+                cout<<"couldn't find the image file in storage\n";
+                cout<<"redirecting to the option menu\n\n";
+                continue;
+            }
+
+            inputFile.close();
+
+
+            if(!checkingImageFormat(extendedStegoImageFileName))
+            {
+                cout<<"sorry, the image format is not correct.\n";
+                cout<<"redirecting to the option menu.\n\n";
+                continue;
+            }
+
+            extractingData(extendedStegoImageFileName);
+            Sleep(8000);
 
         }
-        else
+        else if(choice==3)
+        {
+            string pixelFileName;
+
+            cout<<"provide pixel file name";
+            cout<<"\n";
+
+            cin>>pixelFileName;
+            string extendedPixelFileName=addPixelFileExtension(pixelFileName);
+
+            FILE *fp=NULL;
+            fp = fopen(extendedPixelFileName.c_str(), "rb");
+
+            if(fp==NULL)
+            {
+                cout<<"couldn't find the pixel file in storage\n";
+                cout<<"redirecting to the option menu\n\n";
+                continue;
+            }
+
+            cout<<"showing the GIF file";
+            cout<<"\n\n\n";
+
+            creatingGif(extendedPixelFileName);
+
+            fclose(fp);
+
+        }
+        else if(choice==4)
         {
             continueLoop=false;
         }
-    }
+        else
+        {
+            cout<<"Invalid option";
+            cout<<"\n\n";
 
+            return EXIT_FAILURE;
+        }
+
+        system("cls");
+    }
 }
