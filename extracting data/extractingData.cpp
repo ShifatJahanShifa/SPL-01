@@ -218,20 +218,9 @@ void extractingData(string imageFile)
         hiddenMessage+=storeCharacter[i];
     }
 
-    // here
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
-    WORD savedAttributes;
-
-    GetConsoleScreenBufferInfo(hConsole, &consoleInfo);
-    savedAttributes = consoleInfo.wAttributes;
-
     puts("The hidden message : ");
-
-    SetConsoleTextAttribute(hConsole, FOREGROUND_INTENSITY);
 
     cout<<hiddenMessage<<"\n";
     cout<<"\n\n";
-    SetConsoleTextAttribute(hConsole, savedAttributes);
 
 }
