@@ -116,6 +116,11 @@ void extractingData(string imageFile)
    // cout<<countOfBits<<" size \n";
     //cout<<"a b d"<<a<<b<<" "<<d<<"\n";
 
+    cout<<"show "<<countOfBits<<"\n";
+    if(countOfBits<=0 or countOfBits>100100)
+        cout<<"No message is hidden in this image\n\n";
+
+    else{
     /** retrieving data **/
     bool cnt=true;
     ok=false;
@@ -222,5 +227,5 @@ void extractingData(string imageFile)
 
     cout<<hiddenMessage<<"\n";
     cout<<"\n\n";
-
+    }
 }
