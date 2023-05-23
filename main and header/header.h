@@ -23,6 +23,7 @@ vector<int> decimalToBinary(int decimalValue);
 int binaryToDecimal(int binArray[],int length);
 string addPixelFileExtension(string pixelFileName);
 void gif(string pixelFileName,string gifFile);
-int creatingGif(string pixelFile);
+int creatingGif(string GIFFile);
 void openingImage(string fileName);
 void processInputText(string textFile);
+string addGIFFileExtension(string GIFFileName);
