@@ -1,9 +1,0 @@
-12:40 PM 18-Jan-23
-
-how to convert text file to binary: 
-
-a) i will read the text file one character by one character. 
-b) convert the character into decimal number.
-c) calculating quotient and remainder.
-d) calculating the binary.
-
